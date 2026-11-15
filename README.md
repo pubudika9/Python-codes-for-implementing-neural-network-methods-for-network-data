@@ -1,6 +1,6 @@
 # Two neural extensions of factor-augmented endogenous NQAR
 
-These programs are self-contained examples for the **5 November 2026 paper** and supplied MATLAB code. They are deliberately **two separate methods**, with shared DGP and quantile-regression routines so they can be compared fairly. They do **not** reproduce previously published numerical tables or establish a new consistency theorem.
+These programs are self-contained examples for the factor-augmented NQVAR working paper. We consider **two separate methods**, with shared DGP and quantile-regression routines so they can be compared fairly. 
 
 ## Contents
 
@@ -64,7 +64,7 @@ python graph_attention_w.py --n-grid 50 60 100 --t-grid 50 60 100 \
 
 These examples describe **how** to run large designs; they are not precomputed results. Full grids with repeated training of neural networks and hundreds of LP fits per replication may take substantial compute resources. Set `--replications 2` or `10` first for debugging.
 
-## Relation to your November 2026 DGP
+## DGP:
 
 One outcome regressor `Xy` and one auxiliary regressor `Xz` are used, matching your recent MATLAB setup. Factors follow AR(1) with phi=0.70; `Xy` idiosyncratic innovations have AR(1) coefficient 0.80; `Xz` 0.40; `epsilon` 0.30. Node coefficient centers are `Gamma=0.25`, `lambda=0.35`, `rho=0.15`, `delta0=0.8`, and `beta1=-1`. Structural heterogeneity around the centers is allowed. The simulation uses an expanding 2D lattice (`d0=1.25`, `dc=1.75`) with L-infinity distance and zero diagonal. Default number of factors is `m=2` (change with `--factors 3`). It uses Gaussian outcome innovations shifted by `Phi^{-1}(tau)` to make their **unconditional** tau quantile zero.
 
@@ -165,7 +165,7 @@ The node-wise QR optimizer is an **exact linear-program formulation of pinball l
 
 ## Econometric interpretation and limitations
 
-**1. Two sources of endogeneity.** As your November draft now explicitly recognises, endogenous W through epsilon and simultaneous feedback through `(W_tY_t)_i` are not the same problem. Control-function residuals that account for the first do **not automatically** solve the second. This is a simulation/implementation comparison, not established causal inference. Correct IV/identification restrictions or structural assumptions must be supplied for valid estimation of Gamma under simultaneity.
+**1. Two sources of endogeneity.** The endogenous W through epsilon and simultaneous feedback through `(W_tY_t)_i` are not the same problem. Control-function residuals that account for the first do **not automatically** solve the second. This is a simulation/implementation comparison, not established causal inference. Correct IV/identification restrictions or structural assumptions must be supplied for valid estimation of Gamma under simultaneity.
 
 **2. Generated nuisance estimates.** No uniform NED convergence rates, neural equicontinuity, or asymptotic normality are proved here. Standard neural validation or a fixed time embargo does not supply these proofs.
 
